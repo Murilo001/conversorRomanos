@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Menu.fs" />
+    <Compile Include="Converter.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

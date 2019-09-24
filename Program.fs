@@ -1,11 +1,14 @@
-﻿// Learn more about F# at http://fsharp.org
-
+﻿namespace Main
+// Autor: Murilo de Oliveira Silva.
 open System
-
-let convertNumber numero = printfn "Converti %s pra string" numero
+open Menus
+open Converter
 
 [<EntryPoint>]
 let main argv =
-    convertNumber "Argument Number"
-    //printfn "Hello World from F#!"
-    0 // return an integer exit code
+
+    //let romano = "VIII"
+    //let resultNumerico = discoverRoman romano
+    
+    //printf "%s" resultNumerico
+    0
