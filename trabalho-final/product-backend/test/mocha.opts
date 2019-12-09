@@ -1,0 +1,2 @@
+entitys/**/*.spec.js
+--recursive
