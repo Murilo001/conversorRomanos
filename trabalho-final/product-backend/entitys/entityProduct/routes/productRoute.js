@@ -1,9 +1,11 @@
+import Util from './../../../common/util';
 import validate from '../models/business/validateProduct';
 
 import listProduct from '../models/data/listProduct';
-import getProduct from '../models/data/getProduct';
+import { getProductByName, getProductById } from '../models/data/getProduct';
 import setProduct from '../models/data/setProduct';
 import updateProduct from '../models/data/updateProduct';
+import deleteProduct from '../models/data/deleteProduct';
 
 const productRoutes = (router) => {
 
@@ -30,7 +32,23 @@ const productRoutes = (router) => {
       if (invalid != null) {
         reqTreatment(response, null, invalid);
       } else {
-        getProduct(requisition, err, (data) => {
+        getProductById(requisition, err, (data) => {
+          reqTreatment(response, data, err);
+        });
+      }
+    } catch (err) {
+      reqTreatment(response, null, err);
+    }
+  });
+
+  router.get('/product/:name', (requisition, response) => {
+    try {
+      let err;
+      let invalid = validate(requisition);
+      if (invalid != null) {
+        reqTreatment(response, null, invalid);
+      } else {
+        getProductByName(requisition, err, (data) => {
           reqTreatment(response, data, err);
         });
       }
@@ -79,10 +97,20 @@ const productRoutes = (router) => {
     }
   });
 
-  router.delete('/product/:id', (req, res) => {
-    // productController.deleteProduct(req.params.id, (data, err) => {
-    //   reqTreatment(res, data, err);
-    // });
+  router.delete('/product/:id', (requisition, response) => {
+    try {
+      let err;
+      let invalid = validate(requisition);
+      if (invalid != null) {
+        reqTreatment(response, null, invalid);
+      } else {
+        deleteProduct(requisition, err, (data) => {
+          reqTreatment(response, data, err);
+        });
+      }
+    } catch (err) {
+      reqTreatment(response, null, err);
+    }
   });
 };
 
@@ -94,7 +122,7 @@ const reqTreatment = (response, data, error) => {
   } else {
     treatedResult = data;
   }
-  response.send(JSON.stringify(treatedResult));
+  response.json(treatedResult);
 }
 
 module.exports = productRoutes;
