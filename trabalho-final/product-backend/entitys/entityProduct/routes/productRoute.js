@@ -1,4 +1,3 @@
-import Util from './../../../common/util';
 import validate from '../models/business/validateProduct';
 
 import listProduct from '../models/data/listProduct';
@@ -8,11 +7,10 @@ import updateProduct from '../models/data/updateProduct';
 import deleteProduct from '../models/data/deleteProduct';
 
 const productRoutes = (router) => {
-
   router.get('/product', async (requisition, response) => {
     try {
       let err;
-      let invalid = validate(requisition);
+      const invalid = validate(requisition);
       if (invalid != null) {
         reqTreatment(response, null, invalid);
       } else {
@@ -28,7 +26,7 @@ const productRoutes = (router) => {
   router.get('/product/:id', (requisition, response) => {
     try {
       let err;
-      let invalid = validate(requisition);
+      const invalid = validate(requisition);
       if (invalid != null) {
         reqTreatment(response, null, invalid);
       } else {
@@ -44,7 +42,7 @@ const productRoutes = (router) => {
   router.get('/product/:name', (requisition, response) => {
     try {
       let err;
-      let invalid = validate(requisition);
+      const invalid = validate(requisition);
       if (invalid != null) {
         reqTreatment(response, null, invalid);
       } else {
@@ -57,18 +55,10 @@ const productRoutes = (router) => {
     }
   });
 
-  /**
-   * Adicionar nova leitura.
-   * @route POST /ocr
-   * @group Adicionar - Adiciona uma leitura caso esteja tudo em conforme.
-   * @param {string} req 
-   * @returns {object} 200 - Messagem de sucesso.
-   * @returns {Error}  500 - Dados inválidos.
-   */
   router.post('/product', (requisition, response) => {
     try {
       let err;
-      let invalid = validate(requisition);
+      const invalid = validate(requisition);
       if (invalid != null) {
         reqTreatment(response, null, invalid);
       } else {
@@ -84,7 +74,7 @@ const productRoutes = (router) => {
   router.put('/product/:id', (requisition, response) => {
     try {
       let err;
-      let invalid = validate(requisition);
+      const invalid = validate(requisition);
       if (invalid != null) {
         reqTreatment(response, null, invalid);
       } else {
@@ -100,7 +90,7 @@ const productRoutes = (router) => {
   router.delete('/product/:id', (requisition, response) => {
     try {
       let err;
-      let invalid = validate(requisition);
+      const invalid = validate(requisition);
       if (invalid != null) {
         reqTreatment(response, null, invalid);
       } else {
@@ -123,6 +113,6 @@ const reqTreatment = (response, data, error) => {
     treatedResult = data;
   }
   response.json(treatedResult);
-}
+};
 
 module.exports = productRoutes;

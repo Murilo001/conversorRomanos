@@ -1,13 +1,12 @@
 const deleteProduct = async (requisition, error, callback) => {
-  let productModel = requisition.context.models.Product;
-  let productId = requisition.params.id;
+  const productModel = requisition.context.models.Product;
+  const productId = requisition.params.id;
 
   const removedProduct = await productModel.findByIdAndDelete(productId, (err, product) => {
-    if (err)
-      error = err;
+    if (err) { error = err; }
     return product;
   });
   callback(removedProduct, error);
-}
+};
 
 export default deleteProduct;

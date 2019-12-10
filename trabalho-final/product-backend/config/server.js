@@ -14,7 +14,6 @@ const app = express();
 app.use(async (req, res, next) => {
   req.context = {
     models,
-    //me: await models.User.findByLogin('admin'),
   };
   next();
 });
@@ -59,10 +58,8 @@ publicViewRoute(router, app);
 
 /** Routes of Entitys */
 productRoute(router);
-//readHtmlRoute(router, upload);
 /** Routes of Entitys */
 
-/** End Swagger generator */
 
 app.use(router);
 
@@ -81,21 +78,3 @@ connectDb().then(async () => {
 });
 
 module.exports = app;
-/*
-
-const appSwagger = express();
-const argv = require('minimist')(process.argv.slice(2));
-
-app.use("/v1", appSwagger);
-
-const swagger = require('swagger-node-express').createNew(appSwagger);
-swagger.setApiInfo({
-  title: "example API",
-  description: "API to do something, manage something...",
-  termsOfServiceUrl: "",
-  contact: "yourname@something.com",
-  license: "",
-  licenseUrl: ""
-});
-expressSwagger(options);
-*/

@@ -1,6 +1,6 @@
 const setProduct = async (requisition, error, callback) => {
-  let productModel = requisition.context.models.Product;
-  let productResources = requisition.body;
+  const productModel = requisition.context.models.Product;
+  const productResources = requisition.body;
 
   const productCreated = await productModel.create({
     name: productResources.name,
@@ -9,7 +9,7 @@ const setProduct = async (requisition, error, callback) => {
     createdAt: new Date(),
   });
 
-  callback(productCreated, error)
-}
+  callback(productCreated, error);
+};
 
 export default setProduct;
