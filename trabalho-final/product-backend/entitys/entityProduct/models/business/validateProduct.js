@@ -1,11 +1,44 @@
 /** Common Functions */
-const moment = require('moment');
-const util = require('../../../../common/util');
+const Util = require('../../../../common/util');
 /** End Common Functions */
+
+const verifyBusinessRule = (formData) => {
+  const result = { error: false, message: '' };
+  if (parseFloat(formData.price) <= 0) {
+    result.error = true;
+    result.message += 'Product price can\'t be 0 or lower.<br>';
+  }
+  if (formData.name.length > 100) {
+    result.error = true;
+    result.message += 'Product name can\'t be bigger than 100 characters.<br>';
+  }
+  if (result.error) {
+    return result.message;
+  }
+  return null;
+};
+
+const verifyRequiredFields = (formData) => {
+  const result = { error: false, message: '' };
+  if (Util.isEmpty(formData)) { return 'Unspecified data.'; }
+
+  if (Util.isEmpty(formData.name)) {
+    result.error = true;
+    result.message += 'Product name not provided.<br>';
+  }
+  if (Util.isEmpty(formData.price)) {
+    result.error = true;
+    result.message += 'Product price not provided.<br>';
+  }
+  if (result.error) {
+    return result.message;
+  }
+  return null;
+};
 
 const validate = (formData) => {
   try {
-    return null;
+    console.log(formData);
     const filled = verifyRequiredFields(formData);
     if (filled) { return filled; }
     const regra = verifyBusinessRule(formData);
@@ -14,31 +47,6 @@ const validate = (formData) => {
   } catch (exception) {
     return null;
   }
-};
-
-const verifyBusinessRule = (formData) => null;
-
-const verifyRequiredFields = (formData) => {
-  const result = { error: false, message: '' };
-  if (util.isEmpty(formData)) { return 'Dados não fornecidos.'; }
-
-  if (util.isEmpty(formData.nomeClasse)) {
-    result.error = true;
-    result.message += 'Nome da classe não fornecido.<br>';
-  }
-  if (util.isEmpty(formData.autor)) {
-    result.error = true;
-    result.message += 'Autor não fornecido.<br>';
-  }
-  if (util.isEmpty(formData.atributos)) {
-    result.error = true;
-    result.message += 'Atributos não fornecidos.<br>';
-  }
-
-  if (result.error) {
-    return result.message;
-  }
-  return null;
 };
 
 export default validate;
