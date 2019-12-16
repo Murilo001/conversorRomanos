@@ -36,9 +36,9 @@ const verifyRequiredFields = (formData) => {
   return null;
 };
 
-const validate = (formData) => {
+const validate = (requisition) => {
   try {
-    console.log(formData);
+    const formData = requisition.body;
     const filled = verifyRequiredFields(formData);
     if (filled) { return filled; }
     const regra = verifyBusinessRule(formData);

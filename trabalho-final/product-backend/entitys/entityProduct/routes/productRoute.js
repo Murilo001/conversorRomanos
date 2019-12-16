@@ -18,52 +18,38 @@ const reqTreatment = (response, data, error) => {
 };
 
 const productRoutes = (router) => {
-  router.get('/product', async (requisition, response) => {
+  router.get('/product/', async (requisition, response) => {
     try {
-      const invalid = validate(requisition);
-      if (invalid != null) {
-        reqTreatment(response, null, invalid);
-      } else {
-        listProduct(requisition, (data, error) => {
+      if (requisition.query.name) {
+        return getProductByName(requisition, (data, error) => {
           reqTreatment(response, data, error);
         });
       }
+      if (requisition.query.id) {
+        return getProductById(requisition, (data, error) => {
+          reqTreatment(response, data, error);
+        });
+      }
+      return listProduct(requisition, (data, error) => {
+        reqTreatment(response, data, error);
+      });
+    } catch (error) {
+      reqTreatment(response, null, error);
+    }
+    return null;
+  });
+
+  router.get('/product/:id', async (requisition, response) => {
+    try {
+      getProductById(requisition, (data, error) => {
+        reqTreatment(response, data, error);
+      });
     } catch (error) {
       reqTreatment(response, null, error);
     }
   });
 
-  router.get('/product/:id', (requisition, response) => {
-    try {
-      const invalid = validate(requisition);
-      if (invalid != null) {
-        reqTreatment(response, null, invalid);
-      } else {
-        getProductById(requisition, (data, error) => {
-          reqTreatment(response, data, error);
-        });
-      }
-    } catch (error) {
-      reqTreatment(response, null, error);
-    }
-  });
-
-  router.get('/product/:name', (requisition, response) => {
-    try {
-      const invalid = validate(requisition);
-      if (invalid != null) {
-        reqTreatment(response, null, invalid);
-      } else {
-        getProductByName(requisition, (data, error) => {
-          reqTreatment(response, data, error);
-        });
-      }
-    } catch (error) {
-      reqTreatment(response, null, error);
-    }
-  });
-
-  router.post('/product', (requisition, response) => {
+  router.post('/product', async (requisition, response) => {
     try {
       const invalid = validate(requisition);
       if (invalid != null) {
@@ -78,7 +64,7 @@ const productRoutes = (router) => {
     }
   });
 
-  router.put('/product/:id', (requisition, response) => {
+  router.put('/product/:id', async (requisition, response) => {
     try {
       const invalid = validate(requisition);
       if (invalid != null) {
@@ -93,16 +79,11 @@ const productRoutes = (router) => {
     }
   });
 
-  router.delete('/product/:id', (requisition, response) => {
+  router.delete('/product/:id', async (requisition, response) => {
     try {
-      const invalid = validate(requisition);
-      if (invalid != null) {
-        reqTreatment(response, null, invalid);
-      } else {
-        deleteProduct(requisition, (data, error) => {
-          reqTreatment(response, data, error);
-        });
-      }
+      deleteProduct(requisition, (data, error) => {
+        reqTreatment(response, data, error);
+      });
     } catch (error) {
       reqTreatment(response, null, error);
     }

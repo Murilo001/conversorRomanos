@@ -9,13 +9,13 @@ chai.use(chaiHttp);
 chai.should();
 describe('Products', () => {
   beforeEach((done) => {
-    Product.remove({}, () => {
+    Product.deleteMany({}, () => {
       done();
     });
   });
 
   describe('GET /', () => {
-    it('should get all products record with clean database', (done) => {
+    it('it should GET all products record with clean database', (done) => {
       chai.request(app)
         .get('/product')
         .end((err, res) => {
@@ -29,26 +29,25 @@ describe('Products', () => {
 
   describe('GET /:param', () => {
     it('it should GET a product by the given id', (done) => {
-      const tempProduct = new Product({
+      const testProduct = new Product({
         name: 'Bitter Root',
         description: 'Compound to soften bowel problems.',
         price: 59.90,
         createdAt: new Date(),
       });
-      tempProduct.save((err, savedProduct) => {
+      testProduct.save((saveError, savedProduct) => {
         chai.request(app)
           .get(`/product?id=${savedProduct.id}`)
           .send(savedProduct)
           .end((err, res) => {
             res.should.have.status(200);
-            res.body.should.be.a('array');
-            res.body.length.should.be.eql(1);
+            res.body.should.be.a('object');
             done();
           });
       });
     });
 
-    it('should not get a single product record', (done) => {
+    it('it should NOT GET a single product record', (done) => {
       const name = 'Unregistered Product';
       chai.request(app)
         .get(`/product?name=${name}`)
@@ -62,7 +61,7 @@ describe('Products', () => {
   });
 
   describe('/POST Product', () => {
-    it('Verify product register', (done) => {
+    it('it should POST and verify product register', (done) => {
       const testProduct = {
         name: 'Bitter Root',
         description: 'Compound to soften bowel problems.',
@@ -80,18 +79,18 @@ describe('Products', () => {
   });
 
   describe('/PUT /:id Product', () => {
-    it('Verify product update', (done) => {
-      const product = new Product({
+    it('it should UPDATE and verify product update', (done) => {
+      const testProduct = new Product({
         name: 'Gincobiloba',
         description: 'Compound to soften bowel problems.',
         price: 34.90,
         createdAt: new Date(),
       });
-      product.save((err, product) => {
+      testProduct.save((saveError, productSaved) => {
         chai.request(app)
-          .put(`/product/${product.id}`)
+          .put(`/product/${productSaved.id}`)
           .send({ name: 'Gincobiloba Changed', description: 'Description Changed', price: 39.90 })
-          .end((err, res) => {
+          .end((updateError, res) => {
             res.should.have.status(200);
             res.body.should.be.a('object');
             res.body.should.have.property('name').eql('Gincobiloba Changed');
@@ -102,19 +101,18 @@ describe('Products', () => {
   });
 
   describe('/DELETE /:id Product', () => {
-    it('Verify product delete', (done) => {
-      const product = new Product({
+    it('it should DELETE and verify product delete', (done) => {
+      const testProduct = new Product({
         name: 'Gincobiloba',
         description: 'Compound that serves to alleviate intestinal problems.',
         price: 34.90,
         createdAt: new Date(),
       });
-      product.save((err, product) => {
+      testProduct.save((saveError, productSaved) => {
         chai.request(app)
-          .delete(`/product/${product.id}`)
-          .end((err, res) => {
+          .delete(`/product/${productSaved.id}`)
+          .end((deleteError, res) => {
             res.should.have.status(200);
-            res.body.should.be.a('object');
             done();
           });
       });
