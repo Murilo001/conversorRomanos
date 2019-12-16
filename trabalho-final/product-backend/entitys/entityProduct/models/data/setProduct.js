@@ -1,4 +1,5 @@
-const setProduct = async (requisition, error, callback) => {
+const setProduct = async (requisition, callback) => {
+  let error;
   const productModel = requisition.context.models.Product;
   const productResources = requisition.body;
 
@@ -7,7 +8,7 @@ const setProduct = async (requisition, error, callback) => {
     description: productResources.description,
     price: productResources.price,
     createdAt: new Date(),
-  });
+  }, (createError) => { error = createError; });
 
   callback(productCreated, error);
 };

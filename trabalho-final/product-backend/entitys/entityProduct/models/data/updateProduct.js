@@ -1,4 +1,5 @@
-const updateProduct = async (requisition, error, callback) => {
+const updateProduct = async (requisition, callback) => {
+  let error;
   const productId = requisition.params.id;
   const productModel = requisition.context.models.Product;
   const productResources = requisition.body;
@@ -7,8 +8,8 @@ const updateProduct = async (requisition, error, callback) => {
     productId,
     productResources,
     { new: true },
-    (err, productUpdatedCallback) => {
-      if (err) { error = err; }
+    (updateError, productUpdatedCallback) => {
+      if (updateError) { error = updateError; }
       return productUpdatedCallback;
     },
   );

@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 chai.should();
 describe('Products', () => {
   beforeEach((done) => {
-    Product.remove({}, (err) => {
+    Product.remove({}, () => {
       done();
     });
   });

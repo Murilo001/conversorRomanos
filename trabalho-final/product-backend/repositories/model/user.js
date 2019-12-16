@@ -14,10 +14,10 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-  }
+  },
 });
 
-userSchema.statics.findByLogin = async function(login) {
+userSchema.statics.findByLogin = async (login) => {
   let user = await this.findOne({
     username: login,
   });

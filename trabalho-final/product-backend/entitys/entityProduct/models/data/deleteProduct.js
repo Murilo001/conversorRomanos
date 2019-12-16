@@ -1,4 +1,5 @@
-const deleteProduct = async (requisition, error, callback) => {
+const deleteProduct = async (requisition, callback) => {
+  let error;
   const productModel = requisition.context.models.Product;
   const productId = requisition.params.id;
 
