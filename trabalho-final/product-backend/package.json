@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pretest": "eslint --ignore-path .gitignore .",
+    "eslint": "eslint --ignore-path .gitignore .",
     "test": "mocha --require babel-polyfill --require @babel/register",
     "start": "nodemon --exec babel-node index.js",
     "build": "babel src --out-dir ./dist --source-maps",
