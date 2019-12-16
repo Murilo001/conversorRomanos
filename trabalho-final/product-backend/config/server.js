@@ -40,7 +40,6 @@ app.use(bodyParser.json());
 productRoute(router);
 /** Routes of Entitys */
 
-
 app.use(router);
 
 const eraseDatabaseOnSync = true;
@@ -52,7 +51,7 @@ connectDb().then(async () => {
       models.Product.deleteMany({}),
     ]);
   }
-  app.listen(porta, () => console.log(`Example app listening on port ${porta}!`));
+  app.listen(porta);
 });
 
 module.exports = app;
