@@ -41,8 +41,8 @@ const validate = (requisition) => {
     const formData = requisition.body;
     const filled = verifyRequiredFields(formData);
     if (filled) { return filled; }
-    const regra = verifyBusinessRule(formData);
-    if (regra) { return regra; }
+    const rule = verifyBusinessRule(formData);
+    if (rule) { return rule; }
     return null;
   } catch (exception) {
     return null;

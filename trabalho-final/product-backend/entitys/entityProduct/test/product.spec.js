@@ -7,6 +7,7 @@ process.env.NODE_ENV = 'test';
 
 chai.use(chaiHttp);
 chai.should();
+
 describe('Products', () => {
   beforeEach((done) => {
     Product.deleteMany({}, () => {

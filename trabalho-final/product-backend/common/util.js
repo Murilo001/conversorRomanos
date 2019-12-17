@@ -1,4 +1,4 @@
-const moment = require('moment');
+import Moment from 'moment';
 
 const isEmpty = (object) => {
   if (object === null || object === undefined || object === '') {
@@ -11,18 +11,17 @@ const parseDate = (str) => {
   const date = new Date(str);
 
   if (date.getTime()) {
-    return moment(date);
+    return Moment(date);
   }
 
   try {
-    return moment(str, 'DD/MM/YYYY');
+    return Moment(str, 'DD/MM/YYYY');
   } catch (e) {
     return undefined;
   }
 };
 
-
-module.exports = {
+export {
   isEmpty,
   parseDate,
 };

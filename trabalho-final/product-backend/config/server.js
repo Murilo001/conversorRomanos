@@ -3,12 +3,11 @@
  *
  * @author Murilo de Oliveira Silva.
  */
+import cors from 'cors';
+import express from 'express';
+import bodyParser from 'body-parser';
+import expressLayouts from 'express-ejs-layouts';
 import models, { connectDb } from '../repositories/mongoConnection';
-
-const express = require('express');
-const bodyParser = require('body-parser');
-const expressLayouts = require('express-ejs-layouts');
-const cors = require('cors');
 
 const app = express();
 app.use(async (req, res, next) => {
